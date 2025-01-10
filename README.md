@@ -2,10 +2,7 @@ A modern, responsive website built with **Vue.js** and **Tailwind CSS**, featuri
 
 ---
 
-asd
-
 ## Clone repo:
 
-```bash
-git clone https://github.com/SzymonResiak/porazko-website.git
-```
+   ```bash
+   git clone https://github.com/SzymonResiak/porazko-website.git
