@@ -64,32 +64,51 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
-import { ref, onMounted, onUnmounted, computed } from 'vue';
+import { ref, onMounted, onUnmounted, computed, watch } from 'vue';
 
 const router = useRouter();
 
 const showTapHint = ref(false);
-const isMobile = computed(() => window.innerWidth < 768); // Check if the device is mobile
+
+// Reactive reference for determining if the device is mobile
+const isMobile = ref(false);
+
+// Update the isMobile ref based on orientation and window size
+const updateIsMobile = () => {
+  const isPortrait = window.matchMedia('(orientation: portrait)').matches;
+  const isLandscape = window.matchMedia('(orientation: landscape)').matches;
+
+  if (isPortrait) {
+    isMobile.value = window.innerWidth <= 1024;
+  } else if (isLandscape) {
+    isMobile.value = window.innerHeight <= 1024;
+  } else {
+    isMobile.value = false;
+  }
+};
+
+// Watch for changes in window size and orientation
+watch(
+  () => [window.innerWidth, window.innerHeight, window.orientation],
+  updateIsMobile,
+  { immediate: true }
+);
 
 let animationInterval;
 
 const startAnimation = () => {
   animationInterval = setInterval(() => {
-    // Show the tap hint
     showTapHint.value = true;
 
-    // Hide the tap hint after 3 seconds
     setTimeout(() => {
       showTapHint.value = false;
-    }, 3000); // Animate for 3 seconds
-  }, 5000); // Repeat every 5 seconds (3s animation + 2s pause)
+    }, 3000);
+  }, 5000);
 };
 
 onMounted(() => {
-  if (isMobile.value) {
-    // Only start animation on mobile
-    startAnimation();
-  }
+  updateIsMobile();
+  if (isMobile.value) startAnimation();
 
   // Force a reflow to pre-render transitions on desktop
   if (!isMobile.value) {
@@ -166,7 +185,6 @@ const handleClick = (option) => {
       : document.querySelector('.flex-1:first-child');
 
   if (isMobile.value) {
-    // Mobile behavior: Apply 1.25% expand/shrink and opacity changes, then route after 300ms
     chosenSide.classList.add('flex-grow-mobile');
     otherSide.classList.add('flex-shrink-mobile', 'brightness-80');
 
@@ -181,7 +199,7 @@ const handleClick = (option) => {
       } else {
         router.push('/nephrologist/about');
       }
-    }, 300); // Wait for the transition to complete
+    }, 300);
   } else {
     // Desktop behavior: Fade out text, shrink to 0%, expand to 100%, and route after delay
     const otherText = otherSide.querySelectorAll('h2, h3');
@@ -198,7 +216,7 @@ const handleClick = (option) => {
       } else {
         router.push('/nephrologist/about');
       }
-    }, 800); // 500ms (animation) + 300ms (delay)
+    }, 800);
   }
 };
 </script>
@@ -207,55 +225,47 @@ const handleClick = (option) => {
 /* Mobile-specific transitions (300ms) */
 .flex-grow-mobile {
   flex: 51.25; /* 51.25% width (1.25% expand) */
-  transition: flex 0.3s ease-in-out, filter 0.3s ease-in-out; /* Smooth transition (300ms) */
+  transition: flex 0.3s ease-in-out, filter 0.3s ease-in-out;
 }
 
 .flex-shrink-mobile {
-  flex: 48.75; /* 48.75% width (1.25% shrink) */
-  transition: flex 0.3s ease-in-out, filter 0.3s ease-in-out; /* Smooth transition (300ms) */
+  flex: 48.75;
+  transition: flex 0.3s ease-in-out, filter 0.3s ease-in-out;
 }
 
 /* Desktop-specific transitions */
 .flex-grow {
-  flex: 50.5; /* 50.5% width (0.5% expand) */
-  transition: flex 0.5s ease-in-out, filter 0.5s ease-in-out; /* Smooth transition (500ms) */
+  flex: 50.5;
+  transition: flex 0.5s ease-in-out, filter 0.5s ease-in-out;
 }
 
 .flex-shrink {
-  flex: 49.5; /* 49.5% width (0.5% shrink) */
-  transition: flex 0.5s ease-in-out, filter 0.5s ease-in-out; /* Smooth transition (500ms) */
+  flex: 49.5;
+  transition: flex 0.5s ease-in-out, filter 0.5s ease-in-out;
 }
 
 .flex-full {
-  flex: 100%; /* 100% width */
-  transition: flex 0.5s ease-in-out, filter 0.5s ease-in-out; /* Smooth transition (500ms) */
+  flex: 100%;
+  transition: flex 0.5s ease-in-out, filter 0.5s ease-in-out;
 }
 
 .flex-none {
-  flex: 0%; /* 0% width */
-  transition: flex 0.5s ease-in-out, filter 0.5s ease-in-out; /* Smooth transition (500ms) */
+  flex: 0%;
+  transition: flex 0.5s ease-in-out, filter 0.5s ease-in-out;
 }
 
 .responsive-text {
-  font-size: clamp(
-    1rem,
-    5vw,
-    3rem
-  ); /* Scales between 1rem and 3rem based on 5% of viewport width */
-  transition: opacity 0.3s ease-in-out; /* Smooth text fade-out (300ms) */
+  font-size: clamp(1rem, 5vw, 3rem);
+  transition: opacity 0.3s ease-in-out;
 }
 
 .responsive-subtext {
-  font-size: clamp(
-    0.75rem,
-    3.5vw,
-    1.5rem
-  ); /* Scales between 0.75rem and 1.5rem based on 3.5% of viewport width */
-  transition: opacity 0.3s ease-in-out; /* Smooth text fade-out (300ms) */
+  font-size: clamp(0.75rem, 3.5vw, 1.5rem);
+  transition: opacity 0.3s ease-in-out;
 }
 
 .opacity-0 {
-  opacity: 0; /* Fully transparent */
+  opacity: 0;
 }
 
 @keyframes tap-hint {
@@ -277,7 +287,19 @@ const handleClick = (option) => {
   }
 }
 
+/* For mobile-specific behaviors */
+@media (max-width: 1024px) {
+  .tap-effect:active {
+  }
+}
+
+/* For landscape orientation on mobile */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .tap-effect:active {
+  }
+}
+
 .animate-tap-hint {
-  animation: tap-hint 3s ease-in-out infinite; /* Infinite loop for the animation */
+  animation: tap-hint 3s ease-in-out infinite;
 }
 </style>
