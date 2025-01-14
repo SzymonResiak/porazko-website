@@ -45,6 +45,20 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute();
 
+// Define links for each route
+const dentistLinks = [
+  { path: '/dentist/about', label: 'About' },
+  { path: '/dentist/services', label: 'Services' },
+  { path: '/dentist/certificates', label: 'Certificates' },
+];
+
+const nephrologistLinks = [
+  { path: '/nephrologist/about', label: 'About' },
+  { path: '/nephrologist/services', label: 'Services' },
+  { path: '/nephrologist/certificates', label: 'Certificates' },
+];
+
+// Check if the current route is a dentist or nephrologist route
 const isDentistRoute = computed(() => route.path.startsWith('/dentist/'));
 
 const isNephrologistRoute = computed(() =>
@@ -64,7 +78,7 @@ const navHeightClass = computed(() => {
     desktop:h-[4vh]
     xl-desktop:h-[3.5vh]  // Standard height for large desktop
     mobile-landscape:h-[6vh]  // Mobile landscape height (shorter height)
-    tablet-landscape:h-[5vh]  // Tablet landscape height
+    tablet-landscape:h-[6vh]  // Tablet landscape height
     laptop-landscape:h-[4.5vh]  // Laptop landscape height
     desktop-landscape:h-[4.5vh]  // Desktop landscape height
     xl-desktop-landscape:h-[3.5vh]  // Large desktop landscape height
@@ -116,7 +130,7 @@ const navLinkClass = computed(() => {
     laptop:text-[2.5vw]  // Laptop text size
     desktop:text-[2.5vw]  // Default for desktops
     xl-desktop:text-[2vw]  // Large desktop text size
-    mobile-landscape:text-[2.5vw]  // Mobile landscape text size
+    mobile-landscape:text-[2vw]  // Mobile landscape text size
     tablet-landscape:text-[1.5vw]  // Tablet landscape text size
     laptop-landscape:text-[1.5vw]  // Laptop landscape text size
     desktop-landscape:text-[1.5vw]  // Desktop landscape text size
@@ -135,7 +149,7 @@ const logoClass = computed(() => {
     laptop:text-[2.5vw]  // Laptop text size for logo
     desktop:text-[2.5vw]  // Default logo text size for large desktops
     xl-desktop:text-[2vw]  // Large desktop logo text size
-    mobile-landscape:text-[2.5vw]  // Mobile landscape logo text size
+    mobile-landscape:text-[2vw]  // Mobile landscape logo text size
     tablet-landscape:text-[1.5vw]  // Tablet landscape logo text size
     laptop-landscape:text-[1.5vw]  // Laptop landscape logo text size
     desktop-landscape:text-[1.5vw]  // Desktop landscape logo text size
