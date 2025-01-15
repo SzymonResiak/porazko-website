@@ -13,7 +13,7 @@
 <script setup>
 import { computed } from 'vue';
 import { useRoute } from 'vue-router';
-import NavBar from './components/NavBar.vue'; // Ensure this path is correct
+import NavBar from './components/NavBar.vue';
 
 const route = useRoute();
 
