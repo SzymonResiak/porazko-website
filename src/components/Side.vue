@@ -110,9 +110,8 @@
     animation: tap-hint 3s ease-in-out infinite;
   }
   
-  /* Ensure opacity-0 is applied correctly */
   .opacity-0 {
-    opacity: 0 !important; /* Force higher specificity */
+    opacity: 0 !important;
   }
   
   /* Custom flex classes for smooth transitions */

@@ -9,11 +9,20 @@
           :to="link.path"
           class="flex items-center justify-center text-center transition-all duration-300 min-w-0"
           :class="{
-            'text-black opacity-100 font-bold': isActive(link.path), // Active link: black, full opacity, bold
-            'text-gray-800 opacity-80 hover:text-black hover:opacity-100': !isActive(link.path), // Inactive link: grey, reduced opacity
+            'text-black opacity-100': isActive(link.path),
+            'text-gray-800 opacity-80 hover:text-black hover:opacity-100': !isActive(link.path),
           }"
         >
-          <span :class="navLinkClass">{{ link.label }}</span>
+          <span class="font-bold invisible">{{ link.label }}</span>
+          <span
+            class="absolute"
+            :class="{
+              'font-bold': isActive(link.path), 
+              'font-normal': !isActive(link.path),
+            }"
+          >
+            {{ link.label }}
+          </span>
         </router-link>
       </div>
 
@@ -71,19 +80,17 @@ const activeLinks = computed(() => {
   return [];
 });
 
-// Check if a link is active
 const isActive = (path) => route.path === path;
 
 // Computed properties for dynamic classes
-const navHeightClass = 'h-8 sm:h-8 md:h-8 lg:h-10 xl:h-10'; // Smaller heights
-const navGapClass = 'gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-10'; // Larger gaps
-const navWidthClass = 'w-[90%] sm:w-[85%] md:w-[80%] lg:w-[75%] xl:w-[70%]'; // Narrower widths
-const navLinkClass = 'whitespace-nowrap mr-2 last:mr-0 text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base'; // Smaller text sizes
-const logoClass = 'font-bold text-gray-800 hover:text-black text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base'; // Smaller button text
+const navHeightClass = 'h-8 sm:h-8 md:h-8 lg:h-10 xl:h-10';
+const navGapClass = 'gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-10';
+const navWidthClass = 'w-[90%] sm:w-[85%] md:w-[80%] lg:w-[75%] xl:w-[70%]';
+const navLinkClass = 'whitespace-nowrap mr-2 last:mr-0 text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base';
+const logoClass = 'font-bold text-gray-800 hover:text-black text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base';
 </script>
 
 <style>
-/* Disable text selection */
 .no-select {
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
