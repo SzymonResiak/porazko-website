@@ -1,39 +1,53 @@
 <template>
-  <nav
-    class="fixed top-0 left-0 w-full bg-white shadow-md"
-    :class="navHeightClass"
-  >
+  <nav class="fixed top-0 left-0 w-full bg-white shadow-md no-select" :class="navHeightClass">
     <div class="flex items-center h-full pl-[5%]">
-      <!-- Router Links (Left Side, dynamic width and gap based on screen size) -->
+      <!-- Router Links (Left Side) -->
       <div class="flex" :class="[navWidthClass, navGapClass]">
-        <template v-if="isDentistRoute">
-          <router-link
-            v-for="link in dentistLinks"
-            :key="link.path"
-            :to="link.path"
-            class="flex items-center justify-center text-center opacity-80 transition-all duration-200 min-w-0"
-            :class="{ 'opacity-100 font-bold': isActive(link.path) }"
+        <router-link
+          v-for="link in activeLinks"
+          :key="link.path"
+          :to="link.path"
+          class="flex items-center justify-center text-center transition-all duration-300 min-w-0"
+          :class="{
+            'text-black opacity-100': isActive(link.path),
+            'text-gray-800 opacity-80 hover:text-black hover:opacity-100': !isActive(link.path),
+          }"
+        >
+          <span class="font-bold invisible">{{ link.label }}</span>
+          <span
+            class="absolute"
+            :class="{
+              'font-bold': isActive(link.path), 
+              'font-normal': !isActive(link.path),
+            }"
           >
-            <span :class="navLinkClass">{{ link.label }}</span>
-          </router-link>
-        </template>
-
-        <template v-if="isNephrologistRoute">
-          <router-link
-            v-for="link in nephrologistLinks"
-            :key="link.path"
-            :to="link.path"
-            class="flex items-center justify-center text-center opacity-80 transition-all duration-200 min-w-0"
-            :class="{ 'opacity-100 font-bold': isActive(link.path) }"
-          >
-            <span :class="navLinkClass">{{ link.label }}</span>
-          </router-link>
-        </template>
+            {{ link.label }}
+          </span>
+        </router-link>
       </div>
 
-      <!-- Logo (Right Side, 5% from the edge) -->
+      <!-- Back Link (Right Side) -->
       <div class="absolute right-[5%] flex items-center justify-center">
-        <router-link to="/" :class="logoClass"> Logo/Back </router-link>
+        <router-link
+          to="/"
+          class="flex items-center justify-center p-1 rounded-md hover:bg-gray-100 transition-all duration-200"
+          :class="logoClass"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-4 w-4 sm:h-5 sm:w-5 md:h-5 md:w-5 lg:h-5 lg:w-5 xl:h-6 xl:w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M10 19l-7-7m0 0l7-7m-7 7h18"
+            />
+          </svg>
+        </router-link>
       </div>
     </div>
   </nav>
@@ -46,114 +60,41 @@ import { useRoute } from 'vue-router';
 const route = useRoute();
 
 // Define links for each route
-const dentistLinks = [
-  { path: '/dentist/about', label: 'About' },
-  { path: '/dentist/services', label: 'Services' },
-  { path: '/dentist/certificates', label: 'Certificates' },
-];
+const links = {
+  dentist: [
+    { path: '/dentist/about', label: 'About' },
+    { path: '/dentist/services', label: 'Services' },
+    { path: '/dentist/certificates', label: 'Certificates' },
+  ],
+  nephrologist: [
+    { path: '/nephrologist/about', label: 'About' },
+    { path: '/nephrologist/services', label: 'Services' },
+    { path: '/nephrologist/certificates', label: 'Certificates' },
+  ],
+};
 
-const nephrologistLinks = [
-  { path: '/nephrologist/about', label: 'About' },
-  { path: '/nephrologist/services', label: 'Services' },
-  { path: '/nephrologist/certificates', label: 'Certificates' },
-];
+// Determine active links based on the current route
+const activeLinks = computed(() => {
+  if (route.path.startsWith('/dentist/')) return links.dentist;
+  if (route.path.startsWith('/nephrologist/')) return links.nephrologist;
+  return [];
+});
 
-// Check if the current route is a dentist or nephrologist route
-const isDentistRoute = computed(() => route.path.startsWith('/dentist/'));
-
-const isNephrologistRoute = computed(() =>
-  route.path.startsWith('/nephrologist/')
-);
-
-// Check if a link is active
 const isActive = (path) => route.path === path;
 
-// Computed property for the navigation height class
-const navHeightClass = computed(() => {
-  return `
-    h-[10vh]
-    mobile:h-[3vh]
-    tablet:h-[3.5vh]
-    laptop:h-[3vh]
-    desktop:h-[4vh]
-    xl-desktop:h-[3.5vh]  // Standard height for large desktop
-    mobile-landscape:h-[6vh]  // Mobile landscape height (shorter height)
-    tablet-landscape:h-[6vh]  // Tablet landscape height
-    laptop-landscape:h-[4.5vh]  // Laptop landscape height
-    desktop-landscape:h-[4.5vh]  // Desktop landscape height
-    xl-desktop-landscape:h-[3.5vh]  // Large desktop landscape height
-  `;
-});
-
-const navGapClass = computed(() => {
-  return `
-    gap-2
-    mobile:gap-4
-    tablet:gap-5
-    laptop:gap-6
-    desktop:gap-7
-    xl-desktop:gap-8
-    mobile-landscape:gap-7
-    tablet-landscape:gap-8
-    laptop-landscape:gap-9
-    desktop-landscape:gap-10
-    xl-desktop-landscape:gap-12
-  `;
-});
-
-const navWidthClass = computed(() => {
-  return `
-    w-[90%]
-    mobile:w-[80%]
-    tablet:w-[75%]
-    laptop:w-[70%]
-    desktop:w-[65%]
-    xl-desktop:w-[60%]
-    mobile-landscape:w-[85%]
-    tablet-landscape:w-[80%]
-    laptop-landscape:w-[75%]
-    desktop-landscape:w-[70%]
-    xl-desktop-landscape:w-[65%]
-  `;
-});
-
-const navLinkClass = computed(() => {
-  return `
-    whitespace-nowrap
-    text-gray-800
-    hover:text-black
-    mr-[2vw]
-    last:mr-0
-    text-[4.5vw]  // Default text size for small screens
-    mobile:text-[3vw]  // Mobile text size
-    tablet:text-[2.5vw]  // Tablet text size
-    laptop:text-[2.5vw]  // Laptop text size
-    desktop:text-[2.5vw]  // Default for desktops
-    xl-desktop:text-[2vw]  // Large desktop text size
-    mobile-landscape:text-[2vw]  // Mobile landscape text size
-    tablet-landscape:text-[1.5vw]  // Tablet landscape text size
-    laptop-landscape:text-[1.5vw]  // Laptop landscape text size
-    desktop-landscape:text-[1.5vw]  // Desktop landscape text size
-    xl-desktop-landscape:text-[1vw]  // Large desktop landscape text size
-  `;
-});
-
-const logoClass = computed(() => {
-  return `
-    font-bold
-    text-gray-800
-    hover:text-black
-    text-[4.5vw]  // Default text size for logo on small screens
-    mobile:text-[3vw]  // Mobile text size for logo
-    tablet:text-[2.5vw]  // Tablet text size for logo
-    laptop:text-[2.5vw]  // Laptop text size for logo
-    desktop:text-[2.5vw]  // Default logo text size for large desktops
-    xl-desktop:text-[2vw]  // Large desktop logo text size
-    mobile-landscape:text-[2vw]  // Mobile landscape logo text size
-    tablet-landscape:text-[1.5vw]  // Tablet landscape logo text size
-    laptop-landscape:text-[1.5vw]  // Laptop landscape logo text size
-    desktop-landscape:text-[1.5vw]  // Desktop landscape logo text size
-    xl-desktop-landscape:text-[1vw]  // Large desktop landscape logo text size
-  `;
-});
+// Computed properties for dynamic classes
+const navHeightClass = 'h-8 sm:h-8 md:h-8 lg:h-10 xl:h-10';
+const navGapClass = 'gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-10';
+const navWidthClass = 'w-[90%] sm:w-[85%] md:w-[80%] lg:w-[75%] xl:w-[70%]';
+const navLinkClass = 'whitespace-nowrap mr-2 last:mr-0 text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base';
+const logoClass = 'font-bold text-gray-800 hover:text-black text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base';
 </script>
+
+<style>
+.no-select {
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Standard syntax */
+}
+</style>
