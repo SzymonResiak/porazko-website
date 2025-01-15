@@ -15,8 +15,17 @@ export default {
     extend: {
       fontSize: {
         '3xl': '1.5rem',
-        '4xl': '2.5rem',
-        '5xl': '3.5rem',
+        '4xl': '2.5rem', // Increased for better visibility on 4xl screens
+        '5xl': '3.5rem', // Increased for better visibility on 5xl screens
+        '6xl': '4.5rem', // Larger font for 5k screens
+      },
+      spacing: {
+        128: '32rem', // Custom spacing for larger screens
+      },
+      gridTemplateColumns: {
+        '3xl': 'repeat(4, minmax(0, 1fr))', // 3xl screen: 4 columns
+        '4xl': 'repeat(5, minmax(0, 1fr))', // 4xl screen: 5 columns
+        '5xl': 'repeat(3, minmax(0, 1fr))', // 5xl screen: 3 columns (Reduced from 6 for better layout)
       },
     },
   },
