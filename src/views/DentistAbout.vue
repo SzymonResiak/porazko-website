@@ -20,12 +20,12 @@
         <!-- Dentist Information -->
         <div class="w-full lg:w-1/2 text-left relative">
           <h1
-            class="text-4xl font-bold mb-12 sm:text-5xl lg:text-6xl xl:text-7xl 2xl:text-7xl 3xl:text-8xl 4xl:text-9xl 5xl:text-10xl text-left"
+            class="text-3xl font-bold mb-10 sm:text-2xl lg:text-3xl xl:text-3xl 2xl:text-4xl 3xl:text-4xl 4xl:text-5xl 5xl:text-10xl text-left"
           >
             About Dr. Jane Doe
           </h1>
           <p
-            class="text-lg text-gray-700 mb-4 sm:text-xl lg:text-2xl xl:text-3xl 2xl:text-3xl 3xl:text-4xl 4xl:text-4xl 5xl:text-5xl leading-relaxed xl:leading-relaxed 2xl:leading-loose 3xl:leading-loose 4xl:leading-loose 5xl:leading-loose text-left"
+            class="text-lg text-gray-700 mb-4 sm:text-xl lg:text-1xl xl:text-2xl 2xl:text-3xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl leading-relaxed xl:leading-relaxed 2xl:leading-loose 3xl:leading-loose 4xl:leading-loose 5xl:leading-loose text-left"
           >
             Dr. Jane Doe is a highly skilled and compassionate dentist with over
             10 years of experience in general and cosmetic dentistry. She is
@@ -33,7 +33,7 @@
             their comfort and satisfaction.
           </p>
           <p
-            class="text-lg text-gray-700 sm:text-xl lg:text-2xl xl:text-3xl 2xl:text-3xl 3xl:text-4xl 4xl:text-4xl 5xl:text-5xl leading-relaxed xl:leading-relaxed 2xl:leading-loose 3xl:leading-loose 4xl:leading-loose 5xl:leading-loose text-left"
+            class="text-lg text-gray-700 mb-4 sm:text-xl lg:text-1xl xl:text-2xl 2xl:text-3xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl leading-relaxed xl:leading-relaxed 2xl:leading-loose 3xl:leading-loose 4xl:leading-loose 5xl:leading-loose text-left"
           >
             Dr. Doe believes in a patient-centered approach, combining the
             latest dental technologies with a gentle touch to deliver
