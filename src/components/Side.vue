@@ -24,22 +24,23 @@
       <div
         class="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40 group-hover:bg-opacity-20 transition-all duration-500 ease-in-out"
       >
-        <h2
-          :class="{
-            'opacity-0': isClicked && clickedSide !== side.id,
-          }"
-          class="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold text-white opacity-90 transition-opacity duration-300 ease-in-out mb-2 sm:mb-3"
-        >
-          {{ side.title }}
-        </h2>
-        <h3
-          :class="{
-            'opacity-0': isClicked && clickedSide !== side.id,
-          }"
-          class="text-sm sm:text-md md:text-lg lg:text-xl text-white opacity-90 transition-opacity duration-300 ease-in-out mt-1 sm:mt-2 whitespace-nowrap"
-        >
-          {{ side.subtitle }}
-        </h3>
+      <h2
+        :class="{
+          'opacity-0': isClicked && clickedSide !== side.id,
+        }"
+        class="font-bold text-white opacity-90 transition-opacity duration-300 ease-in-out mb-2 sm:mb-4 text-sm md:text-lg sm:text-base lg:text-xl xl:text-2xl 2xl:text-3xl 3xl:text-4xl 4xl:text-5xl 5xl:text-6xl"
+      >
+      {{ side.title }}
+      </h2>
+
+      <h3
+        :class="{
+          'opacity-0': isClicked && clickedSide !== side.id,
+        }"
+        class="text-white opacity-90 transition-opacity duration-300 ease-in-out mt-1 sm:mt-3 md:mt-4 lg:mt-4 whitespace-nowrap text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl"
+      >
+      {{ side.subtitle }}
+      </h3>
         <div
           v-if="showTapHint && isMobile"
           class="absolute bottom-8 text-white text-sm animate-tap-hint"

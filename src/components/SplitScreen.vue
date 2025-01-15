@@ -108,7 +108,7 @@ const handleClick = (side) => {
   clickedSide.value = side;
 
   if (isMobile.value) {
-    // Mobile behavior: Expand chosen side by 1%, shrink other side by 1% and route after delay
+    // Mobile behavior: Expand chosen side by 1%, shrink other side by 1%s and route after delay
     setTimeout(() => {
       router.push(sides.find((s) => s.id === side).route);
     }, 300);

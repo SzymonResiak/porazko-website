@@ -8,11 +8,15 @@ export default {
       lg: '1024px',
       xl: '1280px',
       '2xl': '1536px',
+      '3xl': '1920px', // Full HD+ and 2K screens
+      '4xl': '2560px', // WQHD and 4K screens
+      '5xl': '3840px', // Ultra-wide and 5K screens
     },
     extend: {
-    
-      fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+      fontSize: {
+        '3xl': '1.5rem',
+        '4xl': '2.5rem',
+        '5xl': '3.5rem',
       },
     },
   },
