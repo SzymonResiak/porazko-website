@@ -36,14 +36,18 @@ const clickedSide = ref(null);
 const sides = [
   {
     id: 'dentist',
-    image: new URL('../assets/images/dentist-placeholder.jpg', import.meta.url).href,
+    image: new URL('../assets/images/dentist-placeholder.jpg', import.meta.url)
+      .href,
     title: 'Dentysta',
-    subtitle: 'lek. med. Justyna Porażko',
+    subtitle: 'lek. stom. Justyna Porażko',
     route: '/dentist/about',
   },
   {
     id: 'nephrologist',
-    image: new URL('../assets/images/nephrologist-placeholder.jpg', import.meta.url).href,
+    image: new URL(
+      '../assets/images/nephrologist-placeholder.jpg',
+      import.meta.url
+    ).href,
     title: 'Nefrolog',
     subtitle: 'dr. n. med. Tomasz Porażko',
     route: '/nephrologist/about',
@@ -57,11 +61,7 @@ const updateIsMobile = () => {
 };
 
 // Watch for changes in window size
-watch(
-  () => window.innerWidth,
-  updateIsMobile,
-  { immediate: true }
-);
+watch(() => window.innerWidth, updateIsMobile, { immediate: true });
 
 // Add event listener for window resize
 window.addEventListener('resize', updateIsMobile);
@@ -108,7 +108,7 @@ const handleClick = (side) => {
   clickedSide.value = side;
 
   if (isMobile.value) {
-    // Mobile behavior: Expand chosen side by 1%, shrink other side by 1% and route after delay
+    // Mobile behavior: Expand chosen side by 1%, shrink other side by 1%s and route after delay
     setTimeout(() => {
       router.push(sides.find((s) => s.id === side).route);
     }, 300);

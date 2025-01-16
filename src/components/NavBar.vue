@@ -1,5 +1,8 @@
 <template>
-  <nav class="fixed top-0 left-0 w-full bg-white shadow-md no-select" :class="navHeightClass">
+  <nav
+    class="fixed top-0 left-0 w-full bg-white shadow-md no-select"
+    :class="navHeightClass"
+  >
     <div class="flex items-center h-full pl-[5%]">
       <!-- Router Links (Left Side) -->
       <div class="flex" :class="[navWidthClass, navGapClass]">
@@ -10,15 +13,18 @@
           class="flex items-center justify-center text-center transition-all duration-300 min-w-0"
           :class="{
             'text-black opacity-100': isActive(link.path),
-            'text-gray-800 opacity-80 hover:text-black hover:opacity-100': !isActive(link.path),
+            'text-gray-800 opacity-80 hover:text-black hover:opacity-100':
+              !isActive(link.path),
+            navRouteLinkClass,
           }"
         >
           <span class="font-bold invisible">{{ link.label }}</span>
           <span
             class="absolute"
             :class="{
-              'font-bold': isActive(link.path), 
+              'font-bold': isActive(link.path),
               'font-normal': !isActive(link.path),
+              'text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl': true,
             }"
           >
             {{ link.label }}
@@ -30,12 +36,12 @@
       <div class="absolute right-[5%] flex items-center justify-center">
         <router-link
           to="/"
-          class="flex items-center justify-center p-1 rounded-md hover:bg-gray-100 transition-all duration-200"
-          :class="logoClass"
+          class="flex items-center justify-center p-1 rounded-md transition-all duration-200"
+          :class="navBackButtonClass"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-4 w-4 sm:h-5 sm:w-5 md:h-5 md:w-5 lg:h-5 lg:w-5 xl:h-6 xl:w-6"
+            class="h-4 w-4 sm:h-5 sm:w-5 md:h-5 md:w-5 lg:h-5 lg:w-5 xl:h-6 xl:w-6 2xl:h-6 2xl:w-6 3xl:h-8 3xl:w-8 4xl:h-10 4xl:w-10 5xl:h-12 5xl:w-12"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -83,18 +89,18 @@ const activeLinks = computed(() => {
 const isActive = (path) => route.path === path;
 
 // Computed properties for dynamic classes
-const navHeightClass = 'h-8 sm:h-8 md:h-8 lg:h-10 xl:h-10';
-const navGapClass = 'gap-4 sm:gap-6 md:gap-8 lg:gap-8 xl:gap-10';
-const navWidthClass = 'w-[90%] sm:w-[85%] md:w-[80%] lg:w-[75%] xl:w-[70%]';
-const navLinkClass = 'whitespace-nowrap mr-2 last:mr-0 text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base';
-const logoClass = 'font-bold text-gray-800 hover:text-black text-xs sm:text-sm md:text-sm lg:text-sm xl:text-base';
-</script>
+const navHeightClass =
+  'h-8 sm:h-10 md:h-12 lg:h-12 xl:h-14 2xl:h-14 3xl:h-18 4xl:h-24 5xl:h-32';
 
-<style>
-.no-select {
-  -webkit-user-select: none; /* Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Standard syntax */
-}
-</style>
+const navGapClass =
+  'gap-4 sm:gap-6 md:gap-8 lg:gap-10 xl:gap-12 2xl:gap-14 3xl:gap-24 4xl:gap-32 5xl:gap-64';
+
+const navWidthClass =
+  'w-[90%] sm:w-[85%] md:w-[80%] lg:w-[75%] xl:w-[70%] 2xl:w-[65%] 3xl:w-[60%] 4xl:w-[55%] 5xl:w-[50%]';
+
+const navRouteLinkClass =
+  'text-xs sm:text-sm md:text-base lg:text-xl xl:text-xl 2xl:text-2xl 3xl:text-3xl 4xl:text-4xl 5xl:text-5xl !important';
+
+const navBackButtonClass =
+  'h-6 w-6 sm:h-8 sm:w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 xl:h-14 xl:w-14 2xl:h-16 2xl:w-16 3xl:h-20 3xl:w-20 4xl:h-32 4xl:w-32 5xl:h-48 5xl:w-48';
+</script>
