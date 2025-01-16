@@ -36,6 +36,7 @@ build/
 *.js
 *.map
 tsconfig.tsbuildinfo
+!postcss.config.js
 
 # Cache directories
 .cache/
